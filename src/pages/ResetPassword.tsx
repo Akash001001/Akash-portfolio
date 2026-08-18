@@ -27,7 +27,7 @@ export function ResetPassword() {
     setLoading(true);
 
     const { error } = await supabase.auth.updateUser({
-      password,
+      password: password,
     });
 
     setLoading(false);
@@ -50,6 +50,7 @@ export function ResetPassword() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-slate-900 p-8 shadow-xl">
+
         <h1 className="text-2xl font-bold text-white">
           Reset Password
         </h1>
@@ -58,7 +59,11 @@ export function ResetPassword() {
           Enter your new password below.
         </p>
 
-        <form onSubmit={handleResetPassword} className="mt-6 space-y-4">
+        <form
+          onSubmit={handleResetPassword}
+          className="mt-6 space-y-4"
+        >
+
           <div>
             <label className="mb-2 block text-sm text-slate-300">
               New Password
@@ -108,6 +113,7 @@ export function ResetPassword() {
           >
             {loading ? 'Updating...' : 'Update Password'}
           </button>
+
         </form>
       </div>
     </div>
