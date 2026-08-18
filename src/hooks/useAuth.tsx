@@ -36,12 +36,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
     return { error: error?.message ?? null };
   };
 
   const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
     return { error: error?.message ?? null };
   };
 
@@ -50,12 +58,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://www.akash1.online/reset-password',
+    });
+
     return { error: error?.message ?? null };
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, signIn, signUp, signOut, resetPassword }}>
+    <AuthContext.Provider
+      value={{
+        session,
+        user,
+        loading,
+        signIn,
+        signUp,
+        signOut,
+        resetPassword,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -63,6 +84,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+
+  if (!ctx) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+
   return ctx;
 }
