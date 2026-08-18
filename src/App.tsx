@@ -1,3 +1,4 @@
+import { ResetPassword } from '@/pages/ResetPassword';
 import { useEffect, useState } from 'react';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
 import { PortfolioProvider } from '@/hooks/usePortfolio';
